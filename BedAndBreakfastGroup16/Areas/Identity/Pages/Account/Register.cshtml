@@ -18,6 +18,26 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <input asp-for="Input.CustomerName" class="form-control" aria-required="true" placeholder="Full Name" />
+                <label asp-for="Input.CustomerName"></label>
+                <span asp-validation-for="Input.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CustomerAge" class="form-control" aria-required="true" placeholder="21" />
+                <label asp-for="Input.CustomerAge"></label>
+                <span asp-validation-for="Input.CustomerAge" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CustomerAddress" class="form-control" aria-required="true" placeholder="Selangor" />
+                <label asp-for="Input.CustomerAddress"></label>
+                <span asp-validation-for="Input.CustomerAddress" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CustomerDoB" class="form-control" aria-required="true" />
+                <label asp-for="Input.CustomerDoB"></label>
+                <span asp-validation-for="Input.CustomerDoB" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.Password">Password</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>

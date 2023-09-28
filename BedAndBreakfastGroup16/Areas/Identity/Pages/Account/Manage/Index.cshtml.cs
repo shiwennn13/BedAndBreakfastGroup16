@@ -59,6 +59,22 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Required(ErrorMessage = "Please enter Customer Name first!")]
+            [Display(Name = "Customer Full Name")]
+            [StringLength(50, ErrorMessage = "Between 5 to 50 characters", MinimumLength = 5)]
+            public string CustomerName { get; set; }
+            [Required(ErrorMessage = "Please enter Customer Age first!")]
+            [Display(Name = "Customer Age")]
+            [Range(18, 99, ErrorMessage = "Only allow 18 - 99 years old adults to register")]
+            public int CustomerAge { get; set; }
+            [Required(ErrorMessage = "Please enter Customer Address first!")]
+            [Display(Name = "Customer Address")]
+            public string CustomerAddress { get; set; }
+            [Required(ErrorMessage = "Please enter Customer DoB first!")]
+            [Display(Name = "Customer DoB")]
+            [DataType(DataType.Date)]
+            public DateTime CustomerDoB { get; set; }
+
         }
 
         private async Task LoadAsync(BedAndBreakfastGroup16User user)
@@ -70,7 +86,11 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                CustomerName=user.CustomerFullName,
+                CustomerAge=user.CustomerAge,
+                CustomerDoB=user.CustomerDoB,
+                CustomerAddress=user.CustomerAddress
             };
         }
 
@@ -111,6 +131,23 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            if (Input.CustomerName != user.CustomerFullName)
+            {
+                user.CustomerFullName = Input.CustomerName;
+            }
+            if (Input.CustomerAge != user.CustomerAge)
+            {
+                user.CustomerAge = Input.CustomerAge;
+            }
+            if (Input.CustomerDoB != user.CustomerDoB)
+            {
+                user.CustomerDoB = Input.CustomerDoB;
+            }
+            if (Input.CustomerAddress != user.CustomerAddress)
+            {
+                user.CustomerAddress = Input.CustomerAddress;
+            }
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
