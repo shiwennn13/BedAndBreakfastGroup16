@@ -1,0 +1,48 @@
+﻿@model Rooms
+@{
+    ViewData["Title"] = "AddNewRoom";
+}
+
+<center>
+    <h1>Add New Room</h1>
+    <br /><hr /><br />
+    <form method="post" asp-action="AddRoom" asp-controller="Rooms">
+        <table>
+            <tr>
+                <th>Room Type:</th>
+                <td><input asp-for="RoomType" placeholder="e.g. Deluxe Twin Room" /></td>
+                <td><span asp-validation-for="RoomType"></span></td>
+            </tr>
+            <tr>
+                <th>Room Image</th>
+                <td><input asp-for="RoomImage" placeholder="Place Image Url" /></td>
+                <td><span asp-validation-for="RoomImage"></span></td>
+            </tr>
+            <tr>
+                <th>Room Price (RM):</th>
+                <td><input asp-for="RoomPrice" placeholder="e.g. 120.99" /></td>
+                <td><span asp-validation-for="RoomPrice"></span></td>
+            </tr>
+            <tr>
+                <th>Room Size (m^2)</th>
+                <td><input asp-for="RoomSize" placeholder="e.g. 22.56" /></td>
+                <td><span asp-validation-for="RoomSize"></span></td>
+            </tr>
+            <tr>
+                <th>Room Capacity (person)</th>
+                <td><input asp-for="RoomCapacity" placeholder="e.g. 4" /></td>
+                <td><span asp-validation-for="RoomCapacity"></span></td>
+            </tr>
+            <tr>
+                <th>Room Description</th>
+                <td><input asp-for="RoomDescription" placeholder="What facilities this room has?" /></td>
+                <td><span asp-validation-for="RoomDescription"></span></td>
+            </tr>
+            <tr>
+                <td colspan="3"><button type="submit" class="btn-info">Add New Room</button></td>
+            </tr>
+        </table>
+    </form>
+
+</center>
+

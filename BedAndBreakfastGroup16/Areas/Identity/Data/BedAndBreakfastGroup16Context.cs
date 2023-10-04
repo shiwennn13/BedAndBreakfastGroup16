@@ -12,6 +12,8 @@ public class BedAndBreakfastGroup16Context : IdentityDbContext<BedAndBreakfastGr
     {
     }
 
+    public DbSet<BedAndBreakfastGroup16.Models.Rooms> RoomsTable { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
