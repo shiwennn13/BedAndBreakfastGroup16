@@ -62,7 +62,8 @@
                         <div class="nav-menu">
                             <nav class="mainmenu">
                                 <ul>
-                                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>                                    
+                                    <li><a asp-area="" asp-controller="SNS" asp-action="BroadcastMessagePage">Broadcast Message</a></li>
                                     <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
                                     <li><a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
                                     <li><a asp-area="" asp-controller="Blogs" asp-action="Index">Blogs</a></li>
@@ -142,9 +143,9 @@
                         <div class="ft-newslatter">
                             <h6>New latest</h6>
                             <p>Get the latest updates and offers.</p>
-                            <form action="#" class="fn-form">
-                                <input type="text" placeholder="Email">
-                                <button type="submit"><i class="fa fa-send"></i></button>
+                            <form method="post" asp-action="regSubscription" asp-controller="SNS" class="fn-form">
+                                <input type="email" name="emailsubscribe" placeholder="aaa@gmail.com"/>
+                            <button type="submit"><i class="fa fa-send"></i></button>
                             </form>
                         </div>
                     </div>
