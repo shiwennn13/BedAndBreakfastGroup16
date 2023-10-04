@@ -3,54 +3,88 @@
     ViewData["Title"] = "editpage";
 }
 
-<center>
-    <h1>Room List Edit Page</h1>
-    <br /> <hr /> <br />
-    <form method="post" asp-action="UpdateProcess" asp-controller="Rooms">
-        <table border="1">
-            <tr>
-                <th><label asp-for="RoomId"></label></th>
-                <td><input asp-for="RoomId" readonly /></td>
-            </tr>
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Edit Room Details</h2>
+                    <div class="bt-option">
+                        <a href="/Rooms/Index">Rooms</a>
+                        <span>Edit Room Details</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
 
-            <tr>
-                <th><label asp-for="RoomType"></label></th>
-                <td><input asp-for="RoomType" /></td>
-                <td><span asp-validation-for="RoomType"></span></td>
-            </tr>
+        <form method="post" asp-action="updateProcess" asp-controller="Rooms" class="contact-form">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <label asp-for="RoomId">Room ID:</label>
+                    <input asp-for="RoomId" readonly />                    
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="RoomType">Room Type:</label>
+                    <input asp-for="RoomType"/>
+                    <span asp-validation-for="RoomType"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="RoomImage">Room Image:</label>
+                    <input type="file" name="imagefiles" accept="image/*" multiple />
+                    
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="RoomPrice">Room Price:</label>
+                    <input asp-for="RoomPrice" />
+                    <span asp-validation-for="RoomPrice"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="RoomSize">Room Size (m^2):</label>
+                    <input asp-for="RoomSize" />
+                    <span asp-validation-for="RoomSize"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="RoomCapacity">Room Capacity (person):</label>
+                    <input asp-for="RoomCapacity"  />
+                    <span asp-validation-for="RoomCapacity"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="Bed">Room Beds:</label>
+                    <input asp-for="Bed"  />
+                    <span asp-validation-for="Bed"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="Services">Room Services:</label>
+                    <input asp-for="Services"  />
+                    <span asp-validation-for="Services"></span>
+                </div>
+                <div class="col-lg-12">
+                    <label asp-for="RoomDescription">Room Description:</label>
 
-            <tr>
-                <th><label asp-for="RoomImage"></label></th>
-                <td><input asp-for="RoomImage" /></td>
-                <td><span asp-validation-for="RoomImage"></span></td>
-            </tr>
+                    <input asp-for="RoomDescription" />
+                    <span asp-validation-for="Services"></span>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-lg site-btn">Update</button>
 
-            <tr>
-                <th><label asp-for="RoomPrice"></label></th>
-                <td><input asp-for="RoomPrice" /></td>
-                <td><span asp-validation-for="RoomPrice"></span></td>
-            </tr>
+                </div>
 
-            <tr>
-                <th><label asp-for="RoomSize"></label></th>
-                <td><input asp-for="RoomSize" /></td>
-                <td><span asp-validation-for="RoomSize"></span></td>
-            </tr>
 
-            <tr>
-                <th><label asp-for="RoomCapacity"></label></th>
-                <td><input asp-for="RoomCapacity" /></td>
-                <td><span asp-validation-for="RoomCapacity"></span></td>
-            </tr>
-            <tr>
-                <th><label asp-for="RoomDescription"></label></th>
-                <td><input asp-for="RoomDescription" /></td>
-                <td><span asp-validation-for="RoomDescription"></span></td>
-            </tr>
-            <tr>
-                <td colspan="3" align="center"><button type="submit" class="btn-info">Update</button></td>
-            </tr>
-        </table>
-    </form>
-</center>
+
+            </div>
+
+
+        </form>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+
 

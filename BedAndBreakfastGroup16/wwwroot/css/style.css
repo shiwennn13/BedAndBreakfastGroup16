@@ -1199,6 +1199,17 @@ ul, ol {
 .room-item .ri-text .primary-btn {
 	color: #19191a;
 }
+.room-item .ri-text .site-btn {
+	    font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+        letter-spacing: 2px;
+        background: #dfa974;
+        border: none;
+        padding: 14px 34px 13px;
+        display: inline-block;
+}
 .room-pagination {
 	text-align: center;
 	padding-top: 20px;
