@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BedAndBreakfastGroup16.Migrations
 {
     [DbContext(typeof(BedAndBreakfastGroup16Context))]
-    [Migration("20231003172837_addRoomTable")]
+    [Migration("20231004110306_addRoomTable")]
     partial class addRoomTable
     {
         /// <inheritdoc />
@@ -88,6 +88,9 @@ namespace BedAndBreakfastGroup16.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("userrole")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

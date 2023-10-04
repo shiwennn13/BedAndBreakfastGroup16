@@ -10,6 +10,12 @@ namespace BedAndBreakfastGroup16.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "userrole",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "RoomsTable",
                 columns: table => new
@@ -34,6 +40,10 @@ namespace BedAndBreakfastGroup16.Migrations
         {
             migrationBuilder.DropTable(
                 name: "RoomsTable");
+
+            migrationBuilder.DropColumn(
+                name: "userrole",
+                table: "AspNetUsers");
         }
     }
 }
