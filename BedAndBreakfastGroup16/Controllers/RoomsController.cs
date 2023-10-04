@@ -163,11 +163,17 @@ namespace BedAndBreakfastGroup16.Controllers
             {
                 return NotFound();
             }
-
+            var existingRoom = await _context.RoomsTable.FindAsync(room.RoomId);
+            if (existingRoom == null)
+            {
+                return NotFound();
+            }
             // Check if new images are provided
+            // If no new images are provided, retain the old image URL
             if (imagefile != null && imagefile.Count > 0)
             {
                 List<string> keys = getKeys();
+
                 AmazonS3Client agent = new AmazonS3Client(keys[0], keys[1], keys[2], RegionEndpoint.USEast1);
 
                 foreach (var image in imagefile)
@@ -197,16 +203,21 @@ namespace BedAndBreakfastGroup16.Controllers
                         await agent.PutObjectAsync(request);
 
                         // Update the room's image URL
-                        room.RoomImage = "https://" + bucketname + ".s3.amazonaws.com/images/" + image.FileName;
+                        existingRoom.RoomImage = "https://" + bucketname + ".s3.amazonaws.com/images/" + image.FileName;
                     }
                     catch (AmazonS3Exception ex)
                     {
                         return BadRequest("Technical Issue" + ex.Message);
                     }
                 }
+                
             }
-
-            _context.RoomsTable.Update(room);
+            else
+            {
+                room.RoomImage = existingRoom.RoomImage;
+            }
+            _context.Entry(existingRoom).CurrentValues.SetValues(room);
+           
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Rooms");
         }
