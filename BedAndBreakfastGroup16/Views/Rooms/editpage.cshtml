@@ -1,0 +1,56 @@
+﻿@model Rooms
+@{
+    ViewData["Title"] = "editpage";
+}
+
+<center>
+    <h1>Room List Edit Page</h1>
+    <br /> <hr /> <br />
+    <form method="post" asp-action="UpdateProcess" asp-controller="Rooms">
+        <table border="1">
+            <tr>
+                <th><label asp-for="RoomId"></label></th>
+                <td><input asp-for="RoomId" readonly /></td>
+            </tr>
+
+            <tr>
+                <th><label asp-for="RoomType"></label></th>
+                <td><input asp-for="RoomType" /></td>
+                <td><span asp-validation-for="RoomType"></span></td>
+            </tr>
+
+            <tr>
+                <th><label asp-for="RoomImage"></label></th>
+                <td><input asp-for="RoomImage" /></td>
+                <td><span asp-validation-for="RoomImage"></span></td>
+            </tr>
+
+            <tr>
+                <th><label asp-for="RoomPrice"></label></th>
+                <td><input asp-for="RoomPrice" /></td>
+                <td><span asp-validation-for="RoomPrice"></span></td>
+            </tr>
+
+            <tr>
+                <th><label asp-for="RoomSize"></label></th>
+                <td><input asp-for="RoomSize" /></td>
+                <td><span asp-validation-for="RoomSize"></span></td>
+            </tr>
+
+            <tr>
+                <th><label asp-for="RoomCapacity"></label></th>
+                <td><input asp-for="RoomCapacity" /></td>
+                <td><span asp-validation-for="RoomCapacity"></span></td>
+            </tr>
+            <tr>
+                <th><label asp-for="RoomDescription"></label></th>
+                <td><input asp-for="RoomDescription" /></td>
+                <td><span asp-validation-for="RoomDescription"></span></td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"><button type="submit" class="btn-info">Update</button></td>
+            </tr>
+        </table>
+    </form>
+</center>
+

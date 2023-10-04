@@ -13,7 +13,7 @@ namespace BedAndBreakfastGroup16.Models
 
         public decimal RoomPrice { get; set; }
 
-        public string RoomSize { get; set; }
+        public decimal RoomSize { get; set; }
 
         public int RoomCapacity { get; set; }
 

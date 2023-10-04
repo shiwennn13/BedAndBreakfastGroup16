@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BedAndBreakfastGroup16.Data;
 using BedAndBreakfastGroup16.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BedAndBreakfastGroup16.Controllers
 {
@@ -14,9 +15,11 @@ namespace BedAndBreakfastGroup16.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        //index page: This page can be used to display the table information (read purpose)
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<Rooms> roomlist = await _context.RoomsTable.ToListAsync();
+            return View(roomlist);
         }
 
         //function: Add new room to the database
@@ -36,6 +39,62 @@ namespace BedAndBreakfastGroup16.Controllers
                 return RedirectToAction("Index", "Rooms");
             }
             return View("AddNewRoom", roomobject); //return back to previous page with data
+        }
+
+        //function 5: Delete Function
+        public async Task<IActionResult> deletepage(int? fid)
+        {
+            if (fid == null)
+            {
+                return NotFound();
+            }
+
+            Rooms room = await _context.RoomsTable.FindAsync(fid);
+
+            if (room == null)
+            {
+                return BadRequest("Room with ID" + fid + "is not found");
+            }
+
+            _context.RoomsTable.Remove(room);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Rooms");
+
+        }
+
+        //function 6: Edit Page
+        public async Task<IActionResult> editpage(int? fid)
+        {
+            if (fid == null)
+            {
+                return NotFound();
+            }
+
+            Rooms room = await _context.RoomsTable.FindAsync(fid);
+
+            if (room == null)
+            {
+                return BadRequest("Room with ID" + fid + "is not found");
+            }
+
+            return View(room);
+
+        }
+
+        //function 7: update the edited information
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] //avoid cross-site attack
+
+        public async Task<IActionResult> updateProcess(Rooms room)
+        {
+            if (room == null)
+            {
+                return NotFound();
+            }
+            _context.RoomsTable.Update(room);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Rooms");
         }
     }
 }
