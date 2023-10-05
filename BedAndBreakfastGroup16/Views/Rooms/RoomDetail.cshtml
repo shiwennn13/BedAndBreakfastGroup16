@@ -1,0 +1,75 @@
+﻿@model Rooms
+@{
+    ViewData["Title"] = "RoomDetail";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Our Room Details</h2>
+                    <div class="bt-option">
+                        <a href="/Rooms/Index">Rooms</a>
+                        <span>Our Room Details</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Section End -->
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <!-- Room Image -->
+                <img src="@Model.RoomImage" alt="">
+            </div>
+            <div class="col-lg-5">
+                <!-- Room Details -->
+                <div class="room-details-item">
+                    <div class="rd-text">
+                        <div class="rd-title">
+                            <h3>@Model.RoomType</h3>
+                           
+                        </div>
+                        <h2>RM @Model.RoomPrice<span>/Per night</span></h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="r-o">Size:</td>
+                                    <td>@Model.RoomSize m²</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Capacity:</td>
+                                    <td>@Model.RoomCapacity</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Bed:</td>
+                                    <td>@Model.Bed</td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Services:</td>
+                                    <td>@Model.Services</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="f-para">
+                            @Model.RoomDescription
+                        </p>
+                        <div class="rd-title">
+                            
+                            <div class="rdt-right">
+                                <a href="#">Booking Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Room Details Section End -->

@@ -207,5 +207,23 @@ namespace BedAndBreakfastGroup16.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Rooms");
         }
+
+        //function 8: Room details
+        public async Task<IActionResult> RoomDetail(int? roomId)
+        {
+            if (roomId == null)
+            {
+                return NotFound();
+            }
+
+            Rooms room = await _context.RoomsTable.FindAsync(roomId);
+
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            return View(room);
+        }
     }
 }
