@@ -1,0 +1,46 @@
+﻿@model List<KeyValuePair<BookingInformation, string>>
+@{
+    ViewData["Title"] = "viewMessages";
+}
+
+<center>
+    <h1>Admin - Reservation Table Dashboard</h1>
+    <table border="1">
+        <tr style="background-color:yellow">
+            <th>Booking ID</th>
+            <th>Room Type</th>
+            <th>Room Pricex</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+            <th>CheckIn Date</th>
+            <th>CheckOut Date</th>
+            <th>Pax</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Key.BookingId</td>
+                <td>@item.Key.RoomType</td>
+                <td>@item.Key.RoomPrice</td>
+                <td>@item.Key.BookingCustName</td>
+                <td>@item.Key.BookingContactEmail</td>
+                <td>@item.Key.BookingContactNumber</td>
+                <td>@item.Key.CheckInDate</td>
+                <td>@item.Key.CheckOutDate</td>
+                <td>@item.Key.pax</td>
+
+                <td>
+                    <form method="post" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="accept">
+                        <button type="submit" class="btn-black">Accept Booking</button> &nbsp; &nbsp; &nbsp;
+                        <button type="submit" class="btn-black" asp-route-deleteid="@item.Value" asp-route-word="decline">Decline Booking</button>
+                    </form>
+                </td>
+            </tr>
+
+        }
+    </table>
+
+</center>
+

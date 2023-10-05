@@ -1,18 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BedAndBreakfastGroup16.Models;
+using BedAndBreakfastGroup16.Data;
 using Amazon;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BedAndBreakfastGroup16.Controllers
 {
     public class BookingController : Controller
     {
-        private const string queueName = "BookingRoomSystemQueue.fifo";
+        private const string queueName = "BookingRoomSystemQueue";
+
+        //connect the controller with the database using below statement
+        private readonly BedAndBreakfastGroup16Context _context;
+
+        public BookingController(BedAndBreakfastGroup16Context context) //constructor
+        {
+            _context = context;
+        }
+
 
         private List<string> getKeys()
         {
@@ -48,6 +59,9 @@ namespace BedAndBreakfastGroup16.Controllers
                 AttributeNames = { "ApproximateNumberOfMessages" }
             };
             GetQueueAttributesResponse response1 = await agent.GetQueueAttributesAsync (request);
+
+            var roomtype = await _context.RoomsTable.ToListAsync();
+            ViewBag.Room = roomtype;
             ViewBag.count = response1.ApproximateNumberOfMessages;
 
             return View();
@@ -74,14 +88,97 @@ namespace BedAndBreakfastGroup16.Controllers
                     MessageBody = JsonConvert.SerializeObject(information)
                 };
                 SendMessageResponse response1 = await agent.SendMessageAsync(request);
-                ViewBag.reserveID = information.BookingId;
-                ViewBag.transactionIS = response1.MessageId;
+                ViewBag.BookingId = information.BookingId;
+                ViewBag.transactionID = response1.MessageId;
                 return View(); //Need UI for the reserved page!
             }
             catch (AmazonSQSException ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+
+        //function 3: view back the message from the queue
+        // admin dashboard type
+        public async Task<IActionResult> viewMessages()
+        {
+            List<string> keys = getKeys();
+            AmazonSQSClient agent = new AmazonSQSClient
+            (keys[0], keys[1], keys[2], RegionEndpoint.USEast1);
+            var response = await agent.GetQueueUrlAsync(new GetQueueUrlRequest { QueueName = queueName });
+
+            List<KeyValuePair<BookingInformation, string>> msglist = new List<KeyValuePair<BookingInformation, string>>();
+            try
+            {
+                ReceiveMessageRequest request = new ReceiveMessageRequest
+                {
+                    QueueUrl = response.QueueUrl,
+                    MaxNumberOfMessages = 10,
+                    WaitTimeSeconds = 10,
+                    VisibilityTimeout = 10,
+                };
+                ReceiveMessageResponse response1 = await agent.ReceiveMessageAsync(request);
+                if (response1.Messages.Count <= 0)
+                {
+                    ViewBag.errormsg = "No Booking in the waiting list now";
+                }
+                else
+                {
+                    for (int i = 0; i < response1.Messages.Count; i++)
+                    {
+                        BookingInformation info = JsonConvert.DeserializeObject<BookingInformation>(response1.Messages[i].Body);
+                        string messageDeleteID = response1.Messages[i].ReceiptHandle;
+                        msglist.Add(new KeyValuePair<BookingInformation, string>(info, messageDeleteID));
+                    }
+                }
+                return View(msglist);
+            }
+            catch (AmazonSQSException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        //function 4: Delete Message from the queue
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> deleteMessage(string deleteid, string word)
+        {
+            List<string> keys = getKeys();
+            AmazonSQSClient agent = new AmazonSQSClient
+            (keys[0], keys[1], keys[2], RegionEndpoint.USEast1);
+
+            //generate the URL using dynamic queuename
+
+            var response = await agent.GetQueueUrlAsync(new GetQueueUrlRequest { QueueName = queueName });
+
+            try
+            {
+                if (word == "accept")
+                {
+                    Console.WriteLine("Linked to database after this!");
+
+                }
+                else
+                {
+                    Console.WriteLine("Only delete message, no need further action!");
+                }
+
+                DeleteMessageRequest request = new DeleteMessageRequest
+                {
+                    QueueUrl = response.QueueUrl,
+                    ReceiptHandle = deleteid
+                };
+                await agent.DeleteMessageAsync(request);
+            }
+            catch (AmazonSQSException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return RedirectToAction("ViewMessages", "SQSBooking");
         }
     }
 }

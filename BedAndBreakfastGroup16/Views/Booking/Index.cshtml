@@ -14,6 +14,20 @@
         <span asp-validation-for="BookingCustName"></span>
         <br /><br />
 
+        <label asp-for="RoomType">Room Type:</label>
+        <select asp-for="RoomType" required onchange="changePrice(this)">
+            <option value="">-- Select Room Type--</option>
+            @foreach (var roomtype in ViewBag.Room)
+            {
+                <option value="@roomtype.RoomType" data-price="@roomtype.RoomPrice">@roomtype.RoomType</option>
+            }
+        </select>
+
+        <label asp-for="RoomPrice">Room Price:</label>
+            <input asp-for="RoomPrice" id="RoomPrice" class="form-control" placeholder="Price " readonly />
+            <span asp-validation-for="RoomPrice"></span>
+
+
         <label asp-for="BookingContactEmail">Email:</label>
         <input asp-for="BookingContactEmail" type="email" placeholder="e.g. xxx@gmail.com" required />
         <span asp-validation-for="BookingContactEmail"></span>
@@ -44,4 +58,16 @@
         <button type="submit" class="btn-dark">Book Now </button>
     </form>
 </center>
+
+<script>
+    function changePrice(select) {
+        // Get the selected option
+        var selectedOption = select.options[select.selectedIndex];
+
+        // Update the price field with the price from the selected car wash service
+        var priceField = document.getElementById("RoomPrice");
+        priceField.value = selectedOption.getAttribute("data-price");
+    }
+
+</script>
 
