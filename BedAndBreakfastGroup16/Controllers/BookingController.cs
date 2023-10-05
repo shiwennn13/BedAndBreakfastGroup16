@@ -88,6 +88,11 @@ namespace BedAndBreakfastGroup16.Controllers
                     MessageBody = JsonConvert.SerializeObject(information)
                 };
                 SendMessageResponse response1 = await agent.SendMessageAsync(request);
+
+                // Save the booking information to the database
+                _context.BookingInformationTable.Add(information);
+                await _context.SaveChangesAsync();
+
                 ViewBag.BookingId = information.BookingId;
                 ViewBag.transactionID = response1.MessageId;
                 return View(); //Need UI for the reserved page!
@@ -181,25 +186,5 @@ namespace BedAndBreakfastGroup16.Controllers
             return RedirectToAction("ViewMessages", "SQSBooking");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> UpdateBookingStatus(int BookInfoID, string newStatus)
-        //{
-        //    // Fetch the booking from the database
-        //    var booking = await _context.BookingInformationTable.FindAsync(BookInfoID);
-        //    if (booking == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    // Update the booking status
-        //    booking.Status = newStatus;
-
-        //    // Save changes to the database
-        //    _context.Update(booking);
-        //    await _context.SaveChangesAsync();
-
-        //    // Redirect to a suitable view, maybe back to the admin dashboard
-        //    return RedirectToAction("viewMessages");
-        //}
     }
 }

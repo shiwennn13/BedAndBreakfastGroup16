@@ -9,7 +9,7 @@ namespace BedAndBreakfastGroup16.Models
         [Key]
         public int BookInfoID { get; set; }
 
-        public int RoomType { get; set; } 
+        public string RoomType { get; set; } 
 
         public decimal RoomPrice { get; set; }
 
