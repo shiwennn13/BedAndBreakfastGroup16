@@ -12,32 +12,38 @@
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
+                <label asp-for="Username" class="form-label">Username</label>
+                <input asp-for="Username" class="form-control" />
+                
             </div>
             <div class="form-floating mb-3">
+                <label asp-for="Input.CustomerName">Full Name</label>
                 <input asp-for="Input.CustomerName" class="form-control" aria-required="true" placeholder="Full Name" />
-                <label asp-for="Input.CustomerName"></label>
+                
                 <span asp-validation-for="Input.CustomerName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <label asp-for="Input.CustomerAge">Your Age</label>
                 <input asp-for="Input.CustomerAge" class="form-control" aria-required="true" placeholder="21" />
-                <label asp-for="Input.CustomerAge"></label>
+                
                 <span asp-validation-for="Input.CustomerAge" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <label asp-for="Input.CustomerAddress">Your Address</label>
                 <input asp-for="Input.CustomerAddress" class="form-control" aria-required="true" placeholder="Selangor" />
-                <label asp-for="Input.CustomerAddress"></label>
+                
                 <span asp-validation-for="Input.CustomerAddress" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <label asp-for="Input.CustomerDoB">Your DoB</label>
                 <input asp-for="Input.CustomerDoB" class="form-control" aria-required="true" />
-                <label asp-for="Input.CustomerDoB"></label>
+                
                 <span asp-validation-for="Input.CustomerDoB" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
+                <label asp-for="Input.PhoneNumber" class="form-label">Your Phone Number</label>
                 <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
 

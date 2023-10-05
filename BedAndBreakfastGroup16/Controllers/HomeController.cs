@@ -34,6 +34,5 @@ namespace BedAndBreakfastGroup16.Controllers
             return View();
         }
 
-
     }
 }

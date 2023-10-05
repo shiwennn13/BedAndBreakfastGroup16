@@ -62,7 +62,7 @@
 
                             </tbody>
                         </table>
-                        <a href="#" class="primary-btn">More Details...</a>
+                            <a href="@Url.Action("RoomDetail", "Rooms", new { roomId = singleroom.RoomId })" class="primary-btn">More Details...</a>
                         <br/>
                         <br/>
                             @if (User.IsInRole("Admin"))
