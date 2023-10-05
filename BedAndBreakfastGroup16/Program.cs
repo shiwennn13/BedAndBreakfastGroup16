@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("BedAndBreakfas
 
 builder.Services.AddDbContext<BedAndBreakfastGroup16Context>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<BedAndBreakfastGroup16User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<BedAndBreakfastGroup16Context>();
+builder.Services.AddDefaultIdentity<BedAndBreakfastGroup16User>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<BedAndBreakfastGroup16Context>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

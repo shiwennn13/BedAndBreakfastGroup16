@@ -64,7 +64,15 @@
 
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
+
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.userrole">User Role</label>
+                    <br />
+                    <select asp-for="Input.userrole" asp-items="Model.RoleSelectList" class="form-control"> </select>
+                    <span asp-validation-for="Input.userrole" class="text-danger"></span>
+                </div>
                 <div class="form-group text-right">
+                    <br />
                     <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-lg primary-btn" style=" font-size: 10px;">Already have an account? Login here<span style="float: right;">&rarr;</span></a>
                 </div>
                 <div class="form-group text-center">

@@ -20,5 +20,7 @@ public class BedAndBreakfastGroup16User : IdentityUser
 
     [PersonalData]
     public DateTime CustomerDoB { get; set; }
+    [PersonalData]
+    public string userrole { get; set; }
 }
 

@@ -62,9 +62,12 @@
                         <div class="nav-menu">
                             <nav class="mainmenu">
                                 <ul>
-                                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>                                    
-                                    <li><a asp-area="" asp-controller="SNS" asp-action="BroadcastMessagePage">Broadcast Message</a></li>
-                                    <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
+                                    <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a asp-area="" asp-controller="SNS" asp-action="BroadcastMessagePage">Broadcast Message</a></li>
+                                        <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
+                                    }
                                     <li><a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
                                     <li><a asp-area="" asp-controller="Blogs" asp-action="Index">Blogs</a></li>
                                     <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>

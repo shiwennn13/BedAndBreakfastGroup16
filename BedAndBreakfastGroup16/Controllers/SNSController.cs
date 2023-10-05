@@ -4,6 +4,7 @@ using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BedAndBreakfastGroup16.Controllers
 {
@@ -57,7 +58,7 @@ namespace BedAndBreakfastGroup16.Controllers
             }
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         //function 4: admin broadcast personal message sample
         public IActionResult BroadcastMessagePage()
         {

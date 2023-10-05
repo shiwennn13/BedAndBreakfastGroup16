@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<BedAndBreakfastGroup16User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<BedAndBreakfastGroup16User> userManager,
             IUserStore<BedAndBreakfastGroup16User> userStore,
             SignInManager<BedAndBreakfastGroup16User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> _rolemanager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,7 +47,16 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = _rolemanager;
         }
+
+        public SelectList RoleSelectList = new SelectList(
+            new List<SelectListItem>
+            {
+                 new SelectListItem { Selected =true, Text = "Select Role", Value = ""},
+                 new SelectListItem { Selected =true, Text = "Admin", Value = "Admin"},
+                 new SelectListItem { Selected =true, Text = "Customer", Value = "Customer"},
+            }, "Value", "Text", 1);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -113,7 +125,8 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
             [Display(Name = "Customer DoB")]
             [DataType(DataType.Date)]
             public DateTime CustomerDoB {  get; set; }
-
+            [Display(Name = "User Role")]
+            public string userrole { set; get; }
 
 
         }
@@ -140,12 +153,25 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
                 user.CustomerDoB = Input.CustomerDoB;
                 user.CustomerAge = Input.CustomerAge;
                 user.EmailConfirmed = true;
+                user.userrole = Input.userrole;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    bool roleresult = await _roleManager.RoleExistsAsync("Admin");
+                    if (!roleresult)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                    }
+                    roleresult = await _roleManager.RoleExistsAsync("Customer");
+                    if (!roleresult)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                    }
+                    await _userManager.AddToRoleAsync(user, Input.userrole);
+
+                    //_logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

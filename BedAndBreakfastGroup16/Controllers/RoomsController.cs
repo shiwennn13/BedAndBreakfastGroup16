@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;//for binary data transmission for MIME
 using BedAndBreakfastGroup16.Data;
 using BedAndBreakfastGroup16.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BedAndBreakfastGroup16.Controllers
 {
@@ -50,7 +51,7 @@ namespace BedAndBreakfastGroup16.Controllers
             List<Rooms> roomlist = await _context.RoomsTable.ToListAsync();
             return View(roomlist);
         }
-
+        [Authorize(Roles="Admin")]
         //function: Add new room to the database
         public IActionResult AddNewRoom()
         {
