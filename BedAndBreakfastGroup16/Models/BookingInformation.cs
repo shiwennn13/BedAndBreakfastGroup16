@@ -4,8 +4,10 @@ namespace BedAndBreakfastGroup16.Models
 {
     public class BookingInformation
     {
-        [Key]
         public string BookingId { get; set; }
+
+        [Key]
+        public int BookInfoID { get; set; }
 
         public int RoomType { get; set; } 
 
