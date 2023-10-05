@@ -129,7 +129,7 @@ namespace BedAndBreakfastGroup16.Areas.Identity.Pages.Account
                         if (String.IsNullOrEmpty(userrole))
                             return RedirectToAction("Index", "Home");
                         else if (userrole.Equals("Admin"))
-                            return RedirectToAction("BroadcastMessagePage", "SNS");
+                            return RedirectToAction("Index", "Home");
                         else
                             return Redirect("~/Identity/Account/Manage/Index");
                     }
