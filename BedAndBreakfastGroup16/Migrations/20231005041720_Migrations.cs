@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BedAndBreakfastGroup16.Migrations
 {
     /// <inheritdoc />
-    public partial class createnewtable : Migration
+    public partial class Migrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,11 @@ namespace BedAndBreakfastGroup16.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerAge = table.Column<int>(type: "int", nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerDoB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userrole = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,6 +53,26 @@ namespace BedAndBreakfastGroup16.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomsTable",
+                columns: table => new
+                {
+                    RoomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RoomSize = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RoomCapacity = table.Column<int>(type: "int", nullable: false),
+                    Bed = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Services = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomsTable", x => x.RoomId);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +238,9 @@ namespace BedAndBreakfastGroup16.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "RoomsTable");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
