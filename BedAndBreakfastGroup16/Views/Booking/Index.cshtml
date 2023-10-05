@@ -2,62 +2,94 @@
 @{
     ViewData["Title"] = "Index";
 }
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Booking</h2>
+                    <div class="bt-option">
+                        <a href="/Rooms/Index">Rooms</a>
+                        <span>Booking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<center>
-    <h1>Book a Room</h1>
-    <br /><hr />
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
 
-    <br />
-    <form method="post" asp-action="send2Queue" asp-controller="Booking">
-        <label asp-for="BookingCustName">Name:</label>
-        <input asp-for="BookingCustName" placeholder="e.g. Kelvin Lim" required />
-        <span asp-validation-for="BookingCustName"></span>
-        <br /><br />
+        <form method="post" asp-action="send2Queue" asp-controller="Booking" class="contact-form">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <label asp-for="BookingCustName">Name:</label>
+                    <input asp-for="BookingCustName" placeholder="e.g. Kelvin Lim" required />
+                    <span asp-validation-for="BookingCustName"></span>
+                </div>
 
-        <label asp-for="RoomType">Room Type:</label>
-        <select asp-for="RoomType" required onchange="changePrice(this)">
-            <option value="">-- Select Room Type--</option>
-            @foreach (var roomtype in ViewBag.Room)
-            {
-                <option value="@roomtype.RoomType" data-price="@roomtype.RoomPrice">@roomtype.RoomType</option>
-            }
-        </select>
+                <div class="col-lg-6">
+                    <label asp-for="RoomType">Room Type:</label>
+                    <br />
+                    <select asp-for="RoomType" required onchange="changePrice(this)">
+                        <option value="">-- Select Room Type--</option>
+                        @foreach (var roomtype in ViewBag.Room)
+                        {
+                            <option value="@roomtype.RoomType" data-price="@roomtype.RoomPrice">@roomtype.RoomType</option>
+                        }
+                    </select>
+                </div>
+       
+                <div class="col-lg-6">
+                    <label asp-for="RoomPrice">Room Price:</label>
+                    <input asp-for="RoomPrice" id="RoomPrice" class="form-control" placeholder="Price " readonly />
+                    <span asp-validation-for="RoomPrice"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="BookingContactEmail">Email:</label>
+                    <input asp-for="BookingContactEmail" type="email" placeholder="e.g. xxx@gmail.com" required />
+                    <span asp-validation-for="BookingContactEmail"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="BookingContactNumber">Phone Number:</label>
+                    <input asp-for="BookingContactNumber" placeholder="Your Contact Number" required />
+                    <span asp-validation-for="BookingContactNumber"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="pax">Number of Guest:</label>
+                    <input asp-for="pax" min="1" max="6" required />
+                    <span asp-validation-for="pax"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="CheckInDate">Check-In Date:</label>
+                    <input asp-for="CheckInDate" type="date" required />
+                    <span asp-validation-for="CheckInDate"></span>
+                </div>
+                <div class="col-lg-6">
+                    <label asp-for="CheckOutDate">Check-Out Date:</label>
+                    <input asp-for="CheckOutDate" type="date" required />
+                    <span asp-validation-for="CheckOutDate"></span>
+                </div>
+                <div class="form-group text-center">
+                    <input type="hidden" name="Status" value="pending">
+                    <button type="submit" class="btn btn-lg site-btn">Submit</button>
 
-        <label asp-for="RoomPrice">Room Price:</label>
-            <input asp-for="RoomPrice" id="RoomPrice" class="form-control" placeholder="Price " readonly />
-            <span asp-validation-for="RoomPrice"></span>
+                </div>
+                
 
 
-        <label asp-for="BookingContactEmail">Email:</label>
-        <input asp-for="BookingContactEmail" type="email" placeholder="e.g. xxx@gmail.com" required />
-        <span asp-validation-for="BookingContactEmail"></span>
-        <br /><br />
+            </div>
 
-        <label asp-for="BookingContactNumber">Phone Number:</label>
-        <input asp-for="BookingContactNumber" placeholder="Your Contact Number" required />
-        <span asp-validation-for="BookingContactNumber"></span>
-        <br /><br />
 
-        <label asp-for="CheckInDate">Check-In Date:</label>
-        <input asp-for="CheckInDate" type="date" required />
-        <span asp-validation-for="CheckInDate"></span>
-        <br /><br />
+        </form>
+    </div>
+</section>
+<!-- Contact Section End -->
 
-        <label asp-for="CheckOutDate">Check-Out Date:</label>
-        <input asp-for="CheckOutDate" type="date" required />
-        <span asp-validation-for="CheckOutDate"></span>
-        <br /><br />
 
-        <label asp-for="pax">Number of Guest:</label>
-        <input asp-for="pax" min="1" max="6" required />
-        <span asp-validation-for="pax"></span>
-        <br /><br />
-
-        <input type="hidden" name="Status" value="pending">
-
-        <button type="submit" class="btn-dark">Book Now </button>
-    </form>
-</center>
 
 <script>
     function changePrice(select) {

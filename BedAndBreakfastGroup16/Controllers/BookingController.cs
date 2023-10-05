@@ -178,7 +178,7 @@ namespace BedAndBreakfastGroup16.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return RedirectToAction("ViewMessages", "SQSBooking");
+            return RedirectToAction("viewMessages", "Booking");
         }
 
         //[HttpPost]
