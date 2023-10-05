@@ -2,7 +2,7 @@
 
 namespace BedAndBreakfastGroup16.Models
 {
-    public class Blog
+    public class Blogs
     {
         [Key]
         public int BlogId { get; set; }
@@ -10,5 +10,6 @@ namespace BedAndBreakfastGroup16.Models
         public string BlogType { get; set; }
         public string BlogImage { get; set; }
         public string BlogDescription { get; set; }
+
     }
 }

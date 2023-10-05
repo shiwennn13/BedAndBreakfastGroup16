@@ -3,46 +3,99 @@
     ViewData["Title"] = "viewMessages";
 }
 
-<center>
-    <h1>Admin - Reservation Table Dashboard</h1>
-    <table border="1">
-        <tr style="background-color:yellow">
-            <th>Booking ID</th>
-            <th>Room Type</th>
-            <th>Room Pricex</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact Number</th>
-            <th>CheckIn Date</th>
-            <th>CheckOut Date</th>
-            <th>Pax</th>
-            <th>Action</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Key.BookingId</td>
-                <td>@item.Key.RoomType</td>
-                <td>@item.Key.RoomPrice</td>
-                <td>@item.Key.BookingCustName</td>
-                <td>@item.Key.BookingContactEmail</td>
-                <td>@item.Key.BookingContactNumber</td>
-                <td>@item.Key.CheckInDate</td>
-                <td>@item.Key.CheckOutDate</td>
-                <td>@item.Key.pax</td>
+<style>
+    .form-space {
+        margin-top: 20px; /* Adjust the margin-top value to control the amount of space */
+    }
+</style>
 
-                <td>
-                    <form method="post" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="accept">
-                        <button type="submit" class="btn-black">Accept Booking</button> &nbsp; &nbsp; &nbsp;
-                        <button type="submit" class="btn-black" asp-route-deleteid="@item.Value" asp-route-word="decline">Decline Booking</button>
-                    </form>
-                </td>
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Booking Requests</h2>
+                    <div class="bt-option">
+                        <a href="/Home/Index">Home</a>
+                        <span>Booking Requests</span>
+                    </div>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="contact-form">
+       
+        <table class="table table-hover">
+            <tr>
+                
+                <th>
+                    Booking ID
+                </th>
+
+                <th>
+                    Room Type
+                </th>
+
+                <th>
+                    Room Price
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Contact Number
+                </th>
+                <th>
+                    Check In Date
+                </th>
+                <th>
+                    Check Out Date
+                </th>
+                <th>
+                    Pax
+                </th>
+                <th>
+                    Action
+                </th>
+
             </tr>
 
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Key.BookingId</td>
+                    <td>@item.Key.RoomType</td>
+                    <td>@item.Key.RoomPrice</td>
+                    <td>@item.Key.BookingCustName</td>
+                    <td>@item.Key.BookingContactEmail</td>
+                    <td>@item.Key.BookingContactNumber</td>
+                    <td>@item.Key.CheckInDate</td>
+                    <td>@item.Key.CheckOutDate</td>
+                    <td>@item.Key.pax</td>
 
+                    <td>
+                       
 
-        }
-    </table>
+                        <form method="post" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="accept">
+                            <button type="submit" class="site-btn">Accept</button>
+                            <div class="form-space"></div> <!-- This adds space between the forms -->
+                            <button type="submit" class="site-btn" asp-route-deleteid="@item.Value" asp-route-word="decline">Decline</button>
+                        </form>
 
-</center>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
 

@@ -1,0 +1,61 @@
+﻿@model List<Blogs>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h2>Blogs</h2>
+                    <div class="bt-option">
+                        <a href="/Home/Index">Home</a>
+                        <span>Blogs</span>
+                    </div>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="text-right">
+                        <a asp-action="AddNewBlog" asp-controller="Blogs" class="btn btn-lg primary-btn" style="color:#333;">Add New Blogs &rarr;</a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Blog Section Begin -->
+<section class="blog-section blog-page spad">
+    <div class="container">
+        <div class="row">
+            @foreach (var singleblog in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-item set-bg" data-setbg="@singleblog.BlogImage" height="300" width="250">
+                        <div class="bi-text">
+                            <span class="b-tag">@singleblog.BlogType</span>
+                            <h4><a href="@Url.Action("BlogDetails", "Blogs", new { blogId = singleblog.BlogId })">@singleblog.BlogTitle</a></h4>
+
+
+                        </div>
+
+
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="form-group text-center">
+                            <a asp-action="deletepage" asp-controller="Blogs" asp-route-fid="@singleblog.BlogId" class="btn btn-lg primary-btn float-right" style="color:#333;">Delete</a>
+                            <a asp-action="editpage" asp-controller="Blogs" asp-route-fid="@singleblog.BlogId" class="btn btn-lg primary-btn float-left" style="color:#333;">Edit</a>
+                        </div>
+                    }
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

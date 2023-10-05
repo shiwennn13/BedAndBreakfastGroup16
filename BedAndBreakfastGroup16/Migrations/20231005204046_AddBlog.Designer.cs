@@ -4,6 +4,7 @@ using BedAndBreakfastGroup16.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BedAndBreakfastGroup16.Migrations
 {
     [DbContext(typeof(BedAndBreakfastGroup16Context))]
-    partial class BedAndBreakfastGroup16ContextModelSnapshot : ModelSnapshot
+    [Migration("20231005204046_AddBlog")]
+    partial class AddBlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,8 +159,8 @@ namespace BedAndBreakfastGroup16.Migrations
                     b.Property<decimal>("RoomPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("RoomType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoomType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
