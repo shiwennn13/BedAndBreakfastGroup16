@@ -5,12 +5,17 @@ namespace BedAndBreakfastGroup16.Models
     public class BookingInformation
     {
         [Key]
-        public int BookingId { get; set; }
+        public string BookingId { get; set; }
 
-        public int RoomId { get; set; }  // Foreign key to the Rooms table
+        public int RoomType { get; set; } 
 
-        public string UserId { get; set; }  // Assuming you're using Identity, this would be the foreign key to the User table
-        public DateTime BookingDate { get; set; }
+        public decimal RoomPrice { get; set; }
+
+        public string BookingCustName { get; set; }
+
+        public string BookingContactEmail { get; set; }
+
+        public string BookingContactNumber { get; set; }
 
         public DateTime CheckInDate { get; set; }
 

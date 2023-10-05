@@ -1,7 +1,47 @@
-﻿
+﻿@model BookingInformation
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<center>
+    <h1>Book a Room</h1>
+    <br /><hr />
+
+    <br />
+    <form method="post" asp-action="send2Queue" asp-controller="Booking">
+        <label asp-for="BookingCustName">Name:</label>
+        <input asp-for="BookingCustName" placeholder="e.g. Kelvin Lim" required />
+        <span asp-validation-for="BookingCustName"></span>
+        <br /><br />
+
+        <label asp-for="BookingContactEmail">Email:</label>
+        <input asp-for="BookingContactEmail" type="email" placeholder="e.g. xxx@gmail.com" required />
+        <span asp-validation-for="BookingContactEmail"></span>
+        <br /><br />
+
+        <label asp-for="BookingContactNumber">Phone Number:</label>
+        <input asp-for="BookingContactNumber" placeholder="Your Contact Number" required />
+        <span asp-validation-for="BookingContactNumber"></span>
+        <br /><br />
+
+        <label asp-for="CheckInDate">Check-In Date:</label>
+        <input asp-for="CheckInDate" type="date" required />
+        <span asp-validation-for="CheckInDate"></span>
+        <br /><br />
+
+        <label asp-for="CheckOutDate">Check-Out Date:</label>
+        <input asp-for="CheckOutDate" type="date" required />
+        <span asp-validation-for="CheckOutDate"></span>
+        <br /><br />
+
+        <label asp-for="pax">Number of Guest:</label>
+        <input asp-for="pax" min="1" max="6" required />
+        <span asp-validation-for="pax"></span>
+        <br /><br />
+
+        <input type="hidden" name="Status" value="pending">
+
+        <button type="submit" class="btn-dark">Book Now </button>
+    </form>
+</center>
 

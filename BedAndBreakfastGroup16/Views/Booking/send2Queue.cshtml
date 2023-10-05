@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "send2Queue";
+}
+
+<center>
+    <h1>Booking Done!</h1>
+    <p>
+        <b>Thank you for booking with us!</b>
+        <br />
+        We have received your booking! Our crew will contact you as soon as possible
+        <br />
+        If you did not receive the email after 1 day of your booking, please contact us with the below information:
+        <br />
+        <b>Your Reserved ID:</b> @ViewBag.reserveID
+        <br />
+        <b>Your Transaction ID:</b> @ViewBag.transactionID
+        <br>
+        <b>Transaction Current Time: @DateTime.Now</b>
+    </p>
+    <form asp-action="Index" asp-controller="Booking">
+        <button type="submit" class="btn-dark">Back to booking page!</button>
+    </form>
+
+    </p>
+</center>
+
