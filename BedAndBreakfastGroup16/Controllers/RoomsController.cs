@@ -207,7 +207,7 @@ namespace BedAndBreakfastGroup16.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Rooms");
         }
-
+        [Authorize(Roles = "Customer")]
         //function 8: Room details
         public async Task<IActionResult> RoomDetail(int? roomId)
         {

@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net7.0",
+    "self-contained" : true,
+    "application"    : "BedAndBreakfastGroup16",
+    "environment"    : "BedAndBreakfastGroup16-prod-tp059725",
+    "enable-xray"    : true,
+    "enhanced-health-type" : "enhanced",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0a3484e17d7549e23\";\"aws:ec2:vpc,Subnets\"=\"subnet-0bfaaa2b300155e7b\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.5.7 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "bedandbreakfastgroup16-prod-tp059725",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "firstwebkey",
+    "instance-profile"     : "LabInstanceProfile",
+    "service-role"         : "LabRole",
+    "proxy-server"         : "nginx"
+}
