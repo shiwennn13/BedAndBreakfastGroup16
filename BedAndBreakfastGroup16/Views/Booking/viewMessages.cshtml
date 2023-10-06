@@ -83,14 +83,9 @@
                     <td>@item.Key.pax</td>
 
                     <td>
-                       
 
-                        <form method="post" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="accept">
-                            <button type="submit" class="site-btn">Accept</button>
-                            <div class="form-space"></div> <!-- This adds space between the forms -->
-                            <button type="submit" class="site-btn" asp-route-deleteid="@item.Value" asp-route-word="decline">Decline</button>
-                        </form>
-
+                        <a class="btn-dark" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="accept">Confirm Booking</a>
+                        <a class="btn-dark" asp-action="deleteMessage" asp-controller="Booking" asp-route-deleteid="@item.Value" asp-route-word="decline">Decline Booking</a>
                     </td>
                 </tr>
             }

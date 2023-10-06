@@ -147,8 +147,8 @@ namespace BedAndBreakfastGroup16.Controllers
         }
 
         //function 4: Delete Message from the queue
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       
+
         public async Task<IActionResult> deleteMessage(string deleteid, string word)
         {
             List<string> keys = getKeys();
@@ -184,7 +184,52 @@ namespace BedAndBreakfastGroup16.Controllers
             }
 
             return RedirectToAction("viewMessages", "Booking");
+
         }
 
+        public async Task<IActionResult> confirmMessage(string deleteid, string word, int BookInfoID)
+        {
+            List<string> keys = getKeys();
+            AmazonSQSClient agent = new AmazonSQSClient
+            (keys[0], keys[1], keys[2], RegionEndpoint.USEast1);
+
+            //generate the URL using dynamic queuename
+
+            var response = await agent.GetQueueUrlAsync(new GetQueueUrlRequest { QueueName = queueName });
+
+            BookingInformation information = await _context.BookingInformationTable.FindAsync(BookInfoID);
+
+            information.Status = "Approved";
+            _context.Update(information);
+            await _context.SaveChangesAsync();
+
+            try
+            {
+                if (word == "accept")
+                {
+                    Console.WriteLine("Linked to database after this!");
+
+                }
+                else
+                {
+                    Console.WriteLine("Only delete message, no need further action!");
+                }
+
+                DeleteMessageRequest request = new DeleteMessageRequest
+                {
+                    QueueUrl = response.QueueUrl,
+                    ReceiptHandle = deleteid
+                };
+
+
+                await agent.DeleteMessageAsync(request);
+            }
+            catch (AmazonSQSException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return RedirectToAction("viewMessages", "Booking");
+        }
     }
 }
