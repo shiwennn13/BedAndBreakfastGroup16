@@ -60,7 +60,7 @@ namespace BedAndBreakfastGroup16.Controllers
 
 
 
-        //function 4: Worker to bring the flower information to the database
+        //function 4: Worker to bring the information to the database
 
         [HttpPost]
         [ValidateAntiForgeryToken]
